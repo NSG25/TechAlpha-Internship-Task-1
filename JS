@@ -1,0 +1,81 @@
+let userInput = document.getElementById("input-date");
+
+let years = document.getElementById("years")
+let months = document.getElementById("Months")
+let days = document.getElementById("days")
+
+userInput.max = new Date().toISOString().split("T")[0]; //? this method is used for feature date disable.
+
+function calculateAge()
+{
+    
+    let birthDate = new Date(userInput.value)
+
+    if(userInput.value === "")
+    {
+        alert("Please select birthday date");
+        return;
+    }
+  
+    let d1 = birthDate.getDate();
+    let m1 = birthDate.getMonth() + 1;
+    let y1 = birthDate.getFullYear();
+
+    let today = new Date();
+
+    let d2 = today.getDate();
+    let m2 = today.getMonth() + 1;
+    let y2 = today.getFullYear();
+
+    let d3, m3, y3;
+
+    y3 = y2 - y1;
+
+    if(m2 >= m1)
+    {
+        m3 = m2 - m1;
+    }
+    else
+    {
+        y3--;
+        m3 = 12 + m2 -m1;
+    }
+
+    if(d2 >= d1)
+    {
+        d3 = d2 - d1;
+    }
+    else
+    {
+       m3--;
+       d3 = getDaysInMonth(y1, m1) + d2 - d1;
+    }
+
+    if(m3 < 0)
+    {
+        m3 = 11;
+        y3--;
+    }
+    
+   
+    // console.log(`Years =${y3}`);
+    // console.log(`Months =${m3}`);
+    // console.log(`Days =${d3}`);
+
+    years.innerText = y3;
+    months.innerText = m3;
+    days.innerText = d3;
+
+    // years.innerText = "";
+    // months.innerText = "";
+    // days.innerText = "";
+
+
+}
+
+function getDaysInMonth(year, month)
+{
+    return new Date(year, month, 0).getDate();
+}
+
+
